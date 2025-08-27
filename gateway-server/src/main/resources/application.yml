@@ -5,31 +5,29 @@ spring:
   application:
     name: api-gateway
 
-#  cloud:
-#    gateway:
-#      discovery:
-#        locator:
-#          enabled: true                # Enable dynamic routes from Eureka
-#          lower-case-service-id: true  # Convert service IDs to lowercase
-#      routes:
-#        - id: user-service
-#          uri: lb://user-service
-#          predicates:
-#            - Path=/users/**
-
-
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true                # Enable dynamic routes from Eureka
           lower-case-service-id: true  # Convert service IDs to lowercase
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**
+        - id: auth-service
+          uri: lb://auth-service  # Auth-Service running on 8082
+          predicates:
+            - Path=/auth/**
+
+
 
 
 eureka:
   client:
     service-url:
-      defaultZone: http://discovery-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 management:
   endpoints:

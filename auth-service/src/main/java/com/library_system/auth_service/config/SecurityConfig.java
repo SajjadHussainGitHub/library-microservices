@@ -28,11 +28,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(crsf -> crsf.disable()).
-                authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
+
+        http
+                .csrf(csrf -> csrf.disable()) //
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .anyRequest().authenticated()
-                ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                );
         return http.build();
+
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

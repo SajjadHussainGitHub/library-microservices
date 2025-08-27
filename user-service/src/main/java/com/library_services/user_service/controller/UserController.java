@@ -24,7 +24,7 @@ public class UserController {
     }
 
     // Get all
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<com.library_services.user_service.pojo.User>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
