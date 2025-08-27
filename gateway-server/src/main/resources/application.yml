@@ -17,12 +17,19 @@ spring:
 #          predicates:
 #            - Path=/users/**
 
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true                # Enable dynamic routes from Eureka
+          lower-case-service-id: true  # Convert service IDs to lowercase
+
+
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true
+      defaultZone: http://discovery-server:8761/eureka/
 
 management:
   endpoints:
@@ -32,3 +39,6 @@ management:
   endpoint:
     health:
       show-details: always
+# The JWT secret must match auth-service's secret
+jwt:
+  secret: MySuperSecretKeyForJwtThatShouldBeLongEnough12345

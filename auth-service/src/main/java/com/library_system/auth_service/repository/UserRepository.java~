@@ -1,0 +1,6 @@
+package com.library_system.auth_service.repository;
+
+public interface UserRepository {
+
+    
+}

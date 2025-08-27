@@ -1,0 +1,14 @@
+spring:
+  application:
+      name: auth-service
+server:
+  port: 8082
+
+jwt:
+  secret: MySuperSecretKeyForJwtThatShouldBeLongEnough12345
+  expiration: 3600000
+
+eureka:
+  client:
+    service-url:
+        defaultZone: http://discovery-server:8761/eureka/
