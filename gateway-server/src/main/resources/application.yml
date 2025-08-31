@@ -4,22 +4,36 @@ server:
 spring:
   application:
     name: api-gateway
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/orclpdb.docker.internal
+    username: library
+    password: library123
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    jpa:
+      hibernate:
+        ddl-auto: none
+        show-sql: true
+    database-platform: org.hibernate.dialect.OracleDialect
 
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true                # Enable dynamic routes from Eureka
-          lower-case-service-id: true  # Convert service IDs to lowercase
-      routes:
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/users/**
-        - id: auth-service
-          uri: lb://auth-service  # Auth-Service running on 8082
-          predicates:
-            - Path=/auth/**
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+#  cloud:
+#    gateway:
+#      server:
+#        webmvc:
+#          discovery:
+#            locator:
+#              enabled: true
+#              lower-case-service-id: true
+#          routes:
+#            - id: user-service
+#              uri: lb://user-service
+#              predicates:
+#                - Path=/users/**
+
 
 
 
@@ -28,6 +42,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 
 management:
   endpoints:
